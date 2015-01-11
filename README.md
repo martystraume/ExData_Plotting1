@@ -1,114 +1,155 @@
-## Introduction
+---
+title: "ReadMe"
+author: "Marty Straume"
+date: "Sunday, January 11, 2015"
+output: html_document
+---
 
-This assignment uses data from
-the <a href="http://archive.ics.uci.edu/ml/">UC Irvine Machine
-Learning Repository</a>, a popular repository for machine learning
-datasets. In particular, we will be using the "Individual household
-electric power consumption Data Set" which I have made available on
-the course web site:
+ The source data-containing ZIP file must be available in data directory
 
+       [./data/exdata_data_household_power_consumption.zip]
 
-* <b>Dataset</b>: <a href="https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip">Electric power consumption</a> [20Mb]
+ from which is read the entire ~130MB data file, according to given settings,
 
-* <b>Description</b>: Measurements of electric power consumption in
-one household with a one-minute sampling rate over a period of almost
-4 years. Different electrical quantities and some sub-metering values
-are available.
+       [household_power_consumption.txt]
 
+ after which unneeded stuff is removed from memory
 
-The following descriptions of the 9 variables in the dataset are taken
-from
-the <a href="https://archive.ics.uci.edu/ml/datasets/Individual+household+electric+power+consumption">UCI
-web site</a>:
+-------------------------------------------------------------------------------
 
-<ol>
-<li><b>Date</b>: Date in format dd/mm/yyyy </li>
-<li><b>Time</b>: time in format hh:mm:ss </li>
-<li><b>Global_active_power</b>: household global minute-averaged active power (in kilowatt) </li>
-<li><b>Global_reactive_power</b>: household global minute-averaged reactive power (in kilowatt) </li>
-<li><b>Voltage</b>: minute-averaged voltage (in volt) </li>
-<li><b>Global_intensity</b>: household global minute-averaged current intensity (in ampere) </li>
-<li><b>Sub_metering_1</b>: energy sub-metering No. 1 (in watt-hour of active energy). It corresponds to the kitchen, containing mainly a dishwasher, an oven and a microwave (hot plates are not electric but gas powered). </li>
-<li><b>Sub_metering_2</b>: energy sub-metering No. 2 (in watt-hour of active energy). It corresponds to the laundry room, containing a washing-machine, a tumble-drier, a refrigerator and a light. </li>
-<li><b>Sub_metering_3</b>: energy sub-metering No. 3 (in watt-hour of active energy). It corresponds to an electric water-heater and an air-conditioner.</li>
-</ol>
+        zipFile <- "./data/exdata_data_household_power_consumption.zip"
+        data_TXT <- "household_power_consumption.txt"
+        data <- read.table(unz(zipFile, data_TXT), header = TRUE, sep = ";",
+                           na.strings = "?")
+        remove(zipFile, data_TXT)
 
-## Loading the data
+-------------------------------------------------------------------------------
 
+ The subset of data for 01-02/Feb/2007 is isolated, after which unneeded stuff
+ is removed from memory
 
+-------------------------------------------------------------------------------
 
+        data_TRUE <- (data[,1] == "1/2/2007" | data[,1] == "2/2/2007")
+        data_subset <- data[data_TRUE,]
+        remove(data,data_TRUE)
 
+-------------------------------------------------------------------------------
 
-When loading the dataset into R, please consider the following:
+ The subsetted data is transformed to an informationally-equivalent timestamped
+ data set, after which unneeded stuff is removed from memory
 
-* The dataset has 2,075,259 rows and 9 columns. First
-calculate a rough estimate of how much memory the dataset will require
-in memory before reading into R. Make sure your computer has enough
-memory (most modern computers should be fine).
+-------------------------------------------------------------------------------
 
-* We will only be using data from the dates 2007-02-01 and
-2007-02-02. One alternative is to read the data from just those dates
-rather than reading in the entire dataset and subsetting to those
-dates.
+        temp <- as.POSIXct(paste(data_subset$Date, data_subset$Time),
+                           format = "%d/%m/%Y %H:%M:%S")
+        data_timestamped <- cbind(temp, data_subset[,3:9])
+        names(data_timestamped)[1] <- "DateTime"
+        remove(data_subset, temp)
 
-* You may find it useful to convert the Date and Time variables to
-Date/Time classes in R using the `strptime()` and `as.Date()`
-functions.
+-------------------------------------------------------------------------------
 
-* Note that in this dataset missing values are coded as `?`.
+ The first of the four requested plots is generated/saved to [plot1.png]
 
+-------------------------------------------------------------------------------
 
-## Making Plots
+        png("plot1.png", width = 480, height = 480, units = "px", res = 72)
+        hist(data_timestamped$Global_active_power,
+             main = "Global Active Power",
+             xlab = "Global Active Power (kilowatts)",
+             col = "orangered")
+        dev.off()
 
-Our overall goal here is simply to examine how household energy usage
-varies over a 2-day period in February, 2007. Your task is to
-reconstruct the following plots below, all of which were constructed
-using the base plotting system.
+-------------------------------------------------------------------------------
 
-First you will need to fork and clone the following GitHub repository:
-[https://github.com/rdpeng/ExData_Plotting1](https://github.com/rdpeng/ExData_Plotting1)
+ The second of the four requested plots is generated/saved to [plot2.png]
 
+-------------------------------------------------------------------------------
 
-For each plot you should
+        png("plot2.png", width = 480, height = 480, units = "px", res = 72)
+        plot(data_timestamped$DateTime, data_timestamped$Global_active_power, pch = ".",
+             col = "white", xlab = "", ylab = "Global Active Power (kilowatts)")
+        lines(data_timestamped$DateTime, data_timestamped$Global_active_power, lty = 1,
+              lwd = 1, col = "black")
+        dev.off()
 
-* Construct the plot and save it to a PNG file with a width of 480
-pixels and a height of 480 pixels.
+-------------------------------------------------------------------------------
 
-* Name each of the plot files as `plot1.png`, `plot2.png`, etc.
+ The third of the four requested plots is generated/saved to [plot3.png]
 
-* Create a separate R code file (`plot1.R`, `plot2.R`, etc.) that
-constructs the corresponding plot, i.e. code in `plot1.R` constructs
-the `plot1.png` plot. Your code file **should include code for reading
-the data** so that the plot can be fully reproduced. You should also
-include the code that creates the PNG file.
+-------------------------------------------------------------------------------
 
-* Add the PNG file and R code file to your git repository
+        png("plot3.png", width = 480, height = 480, units = "px", res = 72)
+        plot(data_timestamped$DateTime, data_timestamped$Sub_metering_1, type = "n",
+             xlab = "", ylab = "Energy sub metering")
+        lines(data_timestamped$DateTime, data_timestamped$Sub_metering_1, lty = 1,
+              col = "black")
+        lines(data_timestamped$DateTime, data_timestamped$Sub_metering_2, lty = 1,
+              col = "red")
+        lines(data_timestamped$DateTime, data_timestamped$Sub_metering_3, lty = 1,
+              col = "blue")
+        legend("topright", lty = 1, col = c("black", "red", "blue"),
+               legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
+        dev.off()
 
-When you are finished with the assignment, push your git repository to
-GitHub so that the GitHub version of your repository is up to
-date. There should be four PNG files and four R code files.
+-------------------------------------------------------------------------------
 
+ The fourth of the four requested plots is generated/saved to [plot4.png]
 
-The four plots that you will need to construct are shown below. 
+-------------------------------------------------------------------------------
+ Initialize png output parameters and population order for 4-plot layout 
+-------------------------------------------------------------------------------
 
+        png("plot4.png", width = 480, height = 480, units = "px", res = 72)
+        par(mfcol = c(2, 2))
 
-### Plot 1
+-------------------------------------------------------------------------------
+ Create first (top-left) plot
+-------------------------------------------------------------------------------
 
+        plot(data_timestamped$DateTime, data_timestamped$Global_active_power, pch = ".",
+             col = "white", xlab = "", ylab = "Global Active Power")
+        lines(data_timestamped$DateTime, data_timestamped$Global_active_power, lty = 1,
+              lwd = 1, col = "black")
+-------------------------------------------------------------------------------
+ Create second (bottom-left) plot
+-------------------------------------------------------------------------------
 
-![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2.png) 
+        plot(data_timestamped$DateTime, data_timestamped$Sub_metering_1, type = "n",
+             xlab = "", ylab = "Energy sub metering")
+        lines(data_timestamped$DateTime, data_timestamped$Sub_metering_1, lty = 1,
+              col = "black")
+        lines(data_timestamped$DateTime, data_timestamped$Sub_metering_2, lty = 1,
+              col = "red")
+        lines(data_timestamped$DateTime, data_timestamped$Sub_metering_3, lty = 1,
+              col = "blue")
+        legend("topright", lty = 1, bty = "n", col = c("black", "red", "blue"),
+               legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
 
+-------------------------------------------------------------------------------
+ Create third (top-right) plot
+-------------------------------------------------------------------------------
 
-### Plot 2
+        plot(data_timestamped$DateTime, data_timestamped$Voltage, pch = ".",
+             col = "white", xlab = "datetime", ylab = "Voltage")
+        lines(data_timestamped$DateTime, data_timestamped$Voltage, lty = 1,
+              lwd = 1, col = "black")
 
-![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3.png) 
+-------------------------------------------------------------------------------
+ Create fourth (bottom-right) plot
+-------------------------------------------------------------------------------
 
+        plot(data_timestamped$DateTime, data_timestamped$Global_reactive_power,
+             pch = ".", col = "white", xlab = "datetime",
+             ylab = "Global_reactive_power")
+        lines(data_timestamped$DateTime, data_timestamped$Global_reactive_power,
+              lty = 1, lwd = 1, col = "black")
 
-### Plot 3
+-------------------------------------------------------------------------------
+ Close png graphics device
+-------------------------------------------------------------------------------
 
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
+        dev.off()
 
-
-### Plot 4
-
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5.png) 
+-------------------------------------------------------------------------------
 
