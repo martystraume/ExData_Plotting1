@@ -97,14 +97,18 @@ output: html_document
  The fourth of the four requested plots is generated/saved to [plot4.png]
 
 -------------------------------------------------------------------------------
- Initialize png output parameters and population order for 4-plot layout 
+
+ Plot4: Initialize png output parameters and population order for 4-plot layout 
+
 -------------------------------------------------------------------------------
 
         png("plot4.png", width = 480, height = 480, units = "px", res = 72)
         par(mfcol = c(2, 2))
 
 -------------------------------------------------------------------------------
- Create first (top-left) plot
+
+ Plot4: Create first (top-left) plot
+
 -------------------------------------------------------------------------------
 
         plot(data_timestamped$DateTime, data_timestamped$Global_active_power, pch = ".",
@@ -112,7 +116,9 @@ output: html_document
         lines(data_timestamped$DateTime, data_timestamped$Global_active_power, lty = 1,
               lwd = 1, col = "black")
 -------------------------------------------------------------------------------
- Create second (bottom-left) plot
+
+ Plot4: Create second (bottom-left) plot
+
 -------------------------------------------------------------------------------
 
         plot(data_timestamped$DateTime, data_timestamped$Sub_metering_1, type = "n",
@@ -127,7 +133,9 @@ output: html_document
                legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
 
 -------------------------------------------------------------------------------
- Create third (top-right) plot
+
+ Plot4: Create third (top-right) plot
+
 -------------------------------------------------------------------------------
 
         plot(data_timestamped$DateTime, data_timestamped$Voltage, pch = ".",
@@ -136,7 +144,9 @@ output: html_document
               lwd = 1, col = "black")
 
 -------------------------------------------------------------------------------
- Create fourth (bottom-right) plot
+
+ Plot4: Create fourth (bottom-right) plot
+
 -------------------------------------------------------------------------------
 
         plot(data_timestamped$DateTime, data_timestamped$Global_reactive_power,
@@ -146,7 +156,9 @@ output: html_document
               lty = 1, lwd = 1, col = "black")
 
 -------------------------------------------------------------------------------
- Close png graphics device
+
+ Plot4: Close png graphics device
+
 -------------------------------------------------------------------------------
 
         dev.off()
