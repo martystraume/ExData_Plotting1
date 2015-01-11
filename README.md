@@ -98,7 +98,7 @@ output: html_document
 
 -------------------------------------------------------------------------------
 
- Plot4: Initialize png output parameters and population order for 4-plot layout 
+ * Plot4: Initialize png output parameters and population order for 4-plot layout 
 
 -------------------------------------------------------------------------------
 
@@ -107,7 +107,7 @@ output: html_document
 
 -------------------------------------------------------------------------------
 
- Plot4: Create first (top-left) plot
+ * Plot4: Create first (top-left) plot
 
 -------------------------------------------------------------------------------
 
@@ -117,7 +117,7 @@ output: html_document
               lwd = 1, col = "black")
 -------------------------------------------------------------------------------
 
- Plot4: Create second (bottom-left) plot
+ * Plot4: Create second (bottom-left) plot
 
 -------------------------------------------------------------------------------
 
@@ -134,7 +134,7 @@ output: html_document
 
 -------------------------------------------------------------------------------
 
- Plot4: Create third (top-right) plot
+ * Plot4: Create third (top-right) plot
 
 -------------------------------------------------------------------------------
 
@@ -145,7 +145,7 @@ output: html_document
 
 -------------------------------------------------------------------------------
 
- Plot4: Create fourth (bottom-right) plot
+ * Plot4: Create fourth (bottom-right) plot
 
 -------------------------------------------------------------------------------
 
@@ -157,7 +157,7 @@ output: html_document
 
 -------------------------------------------------------------------------------
 
- Plot4: Close png graphics device
+ * Plot4: Close png graphics device
 
 -------------------------------------------------------------------------------
 
