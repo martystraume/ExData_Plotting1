@@ -57,8 +57,8 @@ par(mfcol = c(2, 2))
 # Create first (top-left) plot
 #-------------------------------------------------------------------------------
 #
-plot(data_timestamped$DateTime, data_timestamped$Global_active_power, pch = ".",
-     col = "white", xlab = "", ylab = "Global Active Power")
+plot(data_timestamped$DateTime, data_timestamped$Global_active_power,
+     type = "n", xlab = "", ylab = "Global Active Power")
 lines(data_timestamped$DateTime, data_timestamped$Global_active_power, lty = 1,
       lwd = 1, col = "black")
 #-------------------------------------------------------------------------------
@@ -80,8 +80,8 @@ legend("topright", lty = 1, bty = "n", col = c("black", "red", "blue"),
 # Create third (top-right) plot
 #-------------------------------------------------------------------------------
 #
-plot(data_timestamped$DateTime, data_timestamped$Voltage, pch = ".",
-     col = "white", xlab = "datetime", ylab = "Voltage")
+plot(data_timestamped$DateTime, data_timestamped$Voltage, type = "n",
+     xlab = "datetime", ylab = "Voltage")
 lines(data_timestamped$DateTime, data_timestamped$Voltage, lty = 1,
       lwd = 1, col = "black")
 #
@@ -90,7 +90,7 @@ lines(data_timestamped$DateTime, data_timestamped$Voltage, lty = 1,
 #-------------------------------------------------------------------------------
 #
 plot(data_timestamped$DateTime, data_timestamped$Global_reactive_power,
-     pch = ".", col = "white", xlab = "datetime",
+     type = "n", xlab = "datetime",
      ylab = "Global_reactive_power")
 lines(data_timestamped$DateTime, data_timestamped$Global_reactive_power,
       lty = 1, lwd = 1, col = "black")

@@ -49,8 +49,8 @@ remove(data_subset, temp)
 #-------------------------------------------------------------------------------
 #
 png("plot2.png", width = 480, height = 480, units = "px", res = 72)
-plot(data_timestamped$DateTime, data_timestamped$Global_active_power, pch = ".",
-     col = "white", xlab = "", ylab = "Global Active Power (kilowatts)")
+plot(data_timestamped$DateTime, data_timestamped$Global_active_power,
+     type = "n", xlab = "", ylab = "Global Active Power (kilowatts)")
 lines(data_timestamped$DateTime, data_timestamped$Global_active_power, lty = 1,
       lwd = 1, col = "black")
 dev.off()

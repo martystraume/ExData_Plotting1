@@ -67,8 +67,8 @@ output: html_document
 -------------------------------------------------------------------------------
 
         png("plot2.png", width = 480, height = 480, units = "px", res = 72)
-        plot(data_timestamped$DateTime, data_timestamped$Global_active_power, pch = ".",
-             col = "white", xlab = "", ylab = "Global Active Power (kilowatts)")
+        plot(data_timestamped$DateTime, data_timestamped$Global_active_power,
+             type = "n", xlab = "", ylab = "Global Active Power (kilowatts)")
         lines(data_timestamped$DateTime, data_timestamped$Global_active_power, lty = 1,
               lwd = 1, col = "black")
         dev.off()
@@ -111,10 +111,11 @@ output: html_document
 
 -------------------------------------------------------------------------------
 
-        plot(data_timestamped$DateTime, data_timestamped$Global_active_power, pch = ".",
-             col = "white", xlab = "", ylab = "Global Active Power")
+        plot(data_timestamped$DateTime, data_timestamped$Global_active_power,
+             type = "n", xlab = "", ylab = "Global Active Power")
         lines(data_timestamped$DateTime, data_timestamped$Global_active_power, lty = 1,
               lwd = 1, col = "black")
+
 -------------------------------------------------------------------------------
 
  * Plot4: Create second (bottom-left) plot
@@ -138,8 +139,8 @@ output: html_document
 
 -------------------------------------------------------------------------------
 
-        plot(data_timestamped$DateTime, data_timestamped$Voltage, pch = ".",
-             col = "white", xlab = "datetime", ylab = "Voltage")
+        plot(data_timestamped$DateTime, data_timestamped$Voltage, type = "n",
+             xlab = "datetime", ylab = "Voltage")
         lines(data_timestamped$DateTime, data_timestamped$Voltage, lty = 1,
               lwd = 1, col = "black")
 
@@ -150,7 +151,7 @@ output: html_document
 -------------------------------------------------------------------------------
 
         plot(data_timestamped$DateTime, data_timestamped$Global_reactive_power,
-             pch = ".", col = "white", xlab = "datetime",
+             type = "n", xlab = "datetime",
              ylab = "Global_reactive_power")
         lines(data_timestamped$DateTime, data_timestamped$Global_reactive_power,
               lty = 1, lwd = 1, col = "black")
